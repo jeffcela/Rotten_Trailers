@@ -1,33 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/jpg" href="assets/images/rotten_trailers_favicon.png"/>
-    <title>Rotten Trailers</title>
-</head>
-<header>
-    <div id=logo>
-        <img src="assets/images/rotten_trailers_logo-01.png" alt="Rottern Trailers Logo"/>
-    </div>
-         <nav>
-            <button id="btn btn-movies" type="button" onclick="alert('it works!')">Movies</button>
-            <button id="btn btn-tv" type="button" onclick="alert('it works!')">TV</button>
-            <button id="btn btn-watchlater" type="button" onclick="alert('it works!')">Watch Later</button>
-        </nav>
-</header>      
-<body>
-    <main id="container-main">
-        <div id="container-results">
-            <div id="list-results">
-               <button id="name-score" type="button">Score</button>
-               <button id="name-movie-name-director" type="button">Name-Movie| Name-Director</button>
-               <button id="btn-watch" type="button">Watch Trailer</button>
-               <button id="btn-save" type="button">Watch Later</button>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/jpg" href="assets/images/rotten_trailers_favicon.png" />
+        <!-- This is a reset that may not be needed -->
+        <link rel="stylesheet" href="assets/css/reset.css">
+        <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- This is our CSS style sheet -->
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <title>Rotten Trailers</title>
+    </head>
+
+    <body>
+        <header>
+            <div id=logo>
+                <img src="assets/images/rotten_trailers_logo-01.png" alt="Rottern Trailers Logo" />
+            </div>
+            <nav>
+                <button id="btn btn-movies" type="button" onclick="alert('it works!')">Movies</button>
+                <button id="btn btn-tv" type="button" onclick="alert('it works!')">TV</button>
+                <button id="btn btn-watchlater" type="button" onclick="alert('it works!')">Watch Later</button>
+            </nav>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <!-- This is the wrapper for the aside and main -->
+                <aside id="container-aside">
+
+                </aside>
             </div>
         </div>
-    </main>
-    
-</body>
+
+        <footer></footer>
+
+        <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- This is our JSS style sheets -->
+        <script src="assets/js/script.js"></script>
+        <script src="assets/js/search.js"></script>
+        <script src="assets/js/video.js"></script>
+
+    </body>
+
 </html>
