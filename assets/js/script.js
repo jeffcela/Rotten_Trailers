@@ -6,8 +6,13 @@ fetch("https://movie-database-imdb-alternative.p.rapidapi.com/?i=tt4154796&r=jso
 	}
 })
 .then(response => {
-	console.log(response);
+	//console.log(response);
+    return response.json();
+})
+.then(data => {
+    console.log(data);
 })
 .catch(err => {
 	console.error(err);
 });
+
