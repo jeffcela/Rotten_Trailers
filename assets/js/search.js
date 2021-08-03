@@ -1,7 +1,8 @@
 var defaultURL = "https://movie-database-imdb-alternative.p.rapidapi.com/?i=tt4154796&r=json";
-
+var fromStorage = [];
 var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
 var queryTxtEl2 = "&page=1&r=json";
+var listRecent = $("#list-recent");
 
 function searchMovie(searchQuery) {
     // creating a search URL by adding the URL to the API + the title being searched for + adding that we want 1 page of results as JSON
@@ -36,15 +37,25 @@ function clickSearchBtn(){
     var searchBox = document.querySelector("#search-input");
     // getting the value inside the search text box
     var searchQuery = searchBox.value;
+    // add the search title to the fromStorage array and save it
+    fromStorage.push(searchQuery);
+    localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
+
     searchMovie(searchQuery);
+    createRecentBtn(searchQuery);
 }
 
 function createRecentBtn (searchParam) {
+    // this creates a new Recent Button
+    var recentLI = $("<li>");
     var recentBtn = $("<button>");
     recentBtn.text(searchParam);
     recentBtn.attr("id", "btnSearch-recent");
     recentBtn.attr("onclick", "clickRecentBtn(this)");
-    return recentBtn;
+
+    // this appends the button to the list item, then the list item to the Recent List
+    recentLI.append(recentBtn);
+    listRecent.append(recentLI);
 }
 
 function clickRecentBtn(clickedBtn) {
@@ -54,8 +65,13 @@ function clickRecentBtn(clickedBtn) {
 
 function populateRecent () {
     // get the list of recent searches out of local storage
-    var fromStorage = JSON.parse(localStorage.getItem("storedRecent"));
+    fromStorage = JSON.parse(localStorage.getItem("storedRecent"));
     if (fromStorage !== null) {
-        return fromStorage;
+        fromStorage.forEach(function(searchTerm, index){
+            createRecentBtn(searchTerm);
+        })
+    } else {
+        break
     };
+    
 }
