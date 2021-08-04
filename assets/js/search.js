@@ -2,12 +2,15 @@ var defaultURL = "https://movie-database-imdb-alternative.p.rapidapi.com/?i=tt41
 var fromStorage = [];
 var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
 var queryTxtEl2 = "&page=1&r=json";
-var listRecent = $("#list-recent");
+var listRecent = document.querySelector("#list-recent");
+// as the Search button does only one thing, it was more efficient to add the even listener on one line than define a variable for the button
+document.getElementById("btn-search").addEventListener("click", clickSearchBtn);
 
 function searchMovie(searchQuery) {
     // creating a search URL by adding the URL to the API + the title being searched for + adding that we want 1 page of results as JSON
     var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2;
-
+    searchURL = searchURL.replace(" ", "%20");
+    console.log(searchURL);
     // this fetch part requires the headers to be used
     fetch(searchURL, {
         "method": "GET",
@@ -30,7 +33,7 @@ function searchMovie(searchQuery) {
     .catch(err => {
         console.error(err);
     }); 
-}
+};
 
 function clickSearchBtn(){
     // getting the search text box
@@ -43,25 +46,25 @@ function clickSearchBtn(){
 
     searchMovie(searchQuery);
     createRecentBtn(searchQuery);
-}
+};
 
 function createRecentBtn (searchParam) {
     // this creates a new Recent Button
-    var recentLI = $("<li>");
-    var recentBtn = $("<button>");
-    recentBtn.text(searchParam);
-    recentBtn.attr("id", "btnSearch-recent");
-    recentBtn.attr("onclick", "clickRecentBtn(this)");
+    var recentLI = document.createElement("li");
+    var recentBtn = document.createElement("button");
+    recentBtn.innerText = searchParam;
+    recentBtn.setAttribute("id", "btnSearch-recent");
+    recentBtn.setAttribute("onclick", "clickRecentBtn(this)");
 
     // this appends the button to the list item, then the list item to the Recent List
-    recentLI.append(recentBtn);
-    listRecent.append(recentLI);
-}
+    recentLI.appendChild(recentBtn);
+    listRecent.appendChild(recentLI);
+};
 
 function clickRecentBtn(clickedBtn) {
-    var searchedName = clickedBtn.text;
+    var searchedName = clickedBtn.innerText;
     searchMovie(searchedName);
-}
+};
 
 function populateRecent () {
     // get the list of recent searches out of local storage
@@ -71,7 +74,10 @@ function populateRecent () {
             createRecentBtn(searchTerm);
         })
     } else {
-        break
+        console.log("Nothing in local storage");
     };
     
-}
+};
+
+// this has to run when the page loads in order to populate fromStorage and not accidentally clear storedRecent
+populateRecent();
