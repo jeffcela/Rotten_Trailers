@@ -12,18 +12,21 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <!-- This is our CSS style sheet -->
         <link rel="stylesheet" href="assets/css/styles.css">
-        <title>Rotten Trailers</title>
+        <title>Rotten Trailers - Movies</title>
     </head>
 
     <body>
         <header>
-            <div id=logo>
-                <img src="assets/images/rotten_trailers_logo-01.png" alt="Rottern Trailers Logo" />
-            </div>
             <nav>
-                <button id="btn btn-movies" type="button" onclick="alert('it works!')">Movies</button>
-                <button id="btn btn-tv" type="button" onclick="alert('it works!')">TV</button>
-                <button id="btn btn-watchlater" type="button" onclick="alert('it works!')">Watch Later</button>
+                <div class="nav-wrapper #8bc34a light-green">
+                    <a href="index.html" class="left"><img id="logo" src="assets/images/rotten_trailers_logo_NT.png" width="100" height="auto" alt="Rottern Trailers Logo" /></a>
+                    <a href="index.html" class="brand-logo center"><img id="logo" src="assets/images/rotten_trailers_logo-type.png" width="375" height="auto" alt="Rottern Trailers Logo" /></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="search.html">Movies</a></li>
+                        <li><a href="tv.html">TV Shows</a></li>
+                        <li><a href="saved.html">Watch Later</a></li>
+                    </ul>
+                </div>
             </nav>
         </header>
 
@@ -31,9 +34,22 @@
             <div class="row">
                 <!-- This is the wrapper for the aside and main -->
                 <aside id="container-aside">
-                    <button id="btn-search" class="btn btn-search">Search</button>
+                    <div id="container-search">
+                        <form>
+                            <input type="text" id="search-input" name="search-input" placeholder="Movie Name">
+                        </form>
+                        <button id="btn-search" class="btn btn-search">Search</button>
+                    </div>
+                    <div id="container-recent">
+                        <h5>Recent</h5>
+                        <ul id="list-recent">
+
+                        </ul>
+                    </div>
                 </aside>
-                
+                <button data-movie="ironman" id="btn-watch" class="btn btn-watch">Watch Trailer</button>
+
+                <a class="waves-effect waves-light btn">button</a>
             </div>
         </div>
 
