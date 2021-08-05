@@ -3,6 +3,7 @@ var fromStorage = [];
 var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
 var queryTxtEl2 = "&page=1&r=json";
 var listRecent = document.querySelector("#list-recent");
+var resultCards = document.querySelector("#resultCards");
 // as the Search button does only one thing, it was more efficient to add the even listener on one line than define a variable for the button
 document.getElementById("btn-search").addEventListener("click", clickSearchBtn);
 
@@ -78,6 +79,19 @@ function populateRecent () {
     };
     
 };
+
+function populateResult () {
+    // populate the results
+    var resultCard = document.createElement("div");
+    var cardTitle = document.createElement("div");
+    var spanTitle = document.createElement("span");
+    var pViewScore = document.createElement("p");
+    var cardAction = document.createElement("div");
+    var watchTrailer = document.createElement("a");
+    var watchLater = document.createElement("a");
+
+    
+}
 
 // this has to run when the page loads in order to populate fromStorage and not accidentally clear storedRecent
 populateRecent();
