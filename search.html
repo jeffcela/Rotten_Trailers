@@ -56,18 +56,17 @@
                     <p class="white-text">Average Viewer Score: 9.5/10</p>
                 </div>
                 <div class="card-action">
-                    <a data-movie="ironman" href="#">Watch Trailer</a>
+                    <a id="myBtn" data-movie="ironman" href="#">Watch Trailer</a>
                     <a href="#">Watch Later</a>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-content #b71c1c red darken-4">
-                    <span class="card-title white-text">Movie Name</span>
-                    <p class="white-text">Average Viewer Score: 9.5/10</p>
-                </div>
-                <div class="card-action">
-                    <a data-movie="ironman" href="#">Watch Trailer</a>
-                    <a href="#">Watch Later</a>
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div id="videoTrailer" class="modal-content">
+                    <span class="close">&times;</span>
+                    <video class="responsive-video" controls>
+                        <source id="movieTrailer" src="movie.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </div>
