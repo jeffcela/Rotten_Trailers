@@ -46,6 +46,9 @@ nav ul a {
   cursor: pointer;
 }
 
-.footer-copyright {
-
+#footer-copyrigh{
+  display: table;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
