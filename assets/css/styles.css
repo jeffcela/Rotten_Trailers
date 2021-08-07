@@ -46,7 +46,7 @@ nav ul a {
   cursor: pointer;
 }
 
-#footer-copyright{
+#footer-container{
   display: table;
   text-align: center;
   margin-left: auto;
