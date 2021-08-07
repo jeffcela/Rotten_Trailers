@@ -46,16 +46,7 @@ nav ul a {
   cursor: pointer;
 }
 
-/* Centers footer content*/
-
-#footer-container{
-  display: table;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* CenterAdds margin to footer content */
+/* Centering, adding margins and positioning to footer content */
 #footer-container{
   width: 100%;
   height: 28px;
