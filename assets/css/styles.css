@@ -46,6 +46,8 @@ nav ul a {
   cursor: pointer;
 }
 
+/* Centers footer content*/
+
 #footer-container{
   display: table;
   text-align: center;
