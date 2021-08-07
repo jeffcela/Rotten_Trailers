@@ -1,9 +1,38 @@
+/* coolor Palette https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529*/
+
+body {
+  background-color: #495057;
+}
+
+nav {
+  background-color: #dee2e6;
+}
+
 #logo {
   margin: 5px 0px;
 }
 
 nav ul a {
-  color: black;
+  color: #343a40;
+}
+
+.btn {
+  background-color: #ced4da;
+  color: #495057;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #212529;
+  color: #ced4da;
+}
+
+#search-input {
+  border-bottom: 1px solid white;
+}
+
+.container-search {
+  margin: 0 auto;
 }
 
 /* Modal Styling */
@@ -44,4 +73,16 @@ nav ul a {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+footer {
+  background-color: #dee2e6;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  text-align: center;
+  font-size: 10px;
+  padding: 8px 0px;
 }
