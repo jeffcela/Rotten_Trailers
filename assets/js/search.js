@@ -1,15 +1,25 @@
 var defaultURL = "https://movie-database-imdb-alternative.p.rapidapi.com/?i=tt4154796&r=json";
 var fromStorage = [];
+// queryTxtEl1 is a default search that searches by a name
 var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
-var queryTxtEl2 = "&page=1&r=json";
+// queryTxtEl1b is a search by IMDB ID
+var queryTxtEl1b = "https://movie-database-imdb-alternative.p.rapidapi.com/?i=";
+// queryTxtEl2 is an optional paramter that determines if the search returns movies, series, or episodes. this can be changed when the page changes from regular search to tv
+var queryTxtEl2 = "&type=movie";
+// queryTxtEl3 is returning the 1st page of results and as a json, and is added to the end of the URL
+var queryTxtEl3 = "&page=1&r=json";
 var listRecent = document.querySelector("#list-recent");
 var resultCards = document.querySelector("#resultCards");
 // as the Search button does only one thing, it was more efficient to add the even listener on one line than define a variable for the button
 document.getElementById("btn-search").addEventListener("click", clickSearchBtn);
 
 function searchMovie(searchQuery) {
-    // creating a search URL by adding the URL to the API + the title being searched for + adding that we want 1 page of results as JSON
-    var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2;
+    /* creating a search URL by adding the URL to the API + the title being searched for + adding that we want 1 page of results as JSON
+    We need to use queryTxtEl1 first, to get the list of movie names and IMDB ID's
+    populate an array[up to 5] of objects with the movie name and IMDB ID's
+    Call a 
+    */
+    var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2 + queryTxtEl3;
     searchURL = searchURL.replace(" ", "%20");
     console.log(searchURL);
     // this fetch part requires the headers to be used
@@ -29,7 +39,22 @@ function searchMovie(searchQuery) {
         // returns the search results object
         console.log(data);
         // all of the results are encapsulated in an array called Search
-        console.log(data.Search[0].Title);
+        // console.log(data.Search[0].Title);
+        /* This would cycle through all search results. We want to currently limit it to 5 or less, so will use a for loop instead
+        data.Search.forEach(function(movie, index) {
+            // sends a single movie object to the populateResult function
+            populateResult(movie);
+        })*/
+        if (data.Search.length < 5){
+            // this is if the number of Search objects is less than 5
+            for (var i=0;i<=data.Search.length;i++){
+                populateResult(data.Search[i]);
+            }} else {
+                // this is if the number of Search objects is more than 5
+                for (var i=0;i<=4;i++){
+                    populateResult(data.Search[i]);
+                }
+            }
     })
     .catch(err => {
         console.error(err);
@@ -80,8 +105,9 @@ function populateRecent () {
     
 };
 
-function populateResult () {
-    // populate the results
+function populateResult (movieData) {
+    // populate the results, movieData is an object that contains all of the info from IMDB
+    var searchURLbyID = queryTxtEl1b + movieData.imdbID + queryTxtEl2 + queryTxtEl3;
     var resultCard = document.createElement("div");
     var cardTitle = document.createElement("div");
     var spanTitle = document.createElement("span");
@@ -90,6 +116,11 @@ function populateResult () {
     var watchTrailer = document.createElement("a");
     var watchLater = document.createElement("a");
 
+    console.log(searchURLbyID);
+    
+    spanTitle.textContent = movieData.Title;
+
+    
     
 }
 
