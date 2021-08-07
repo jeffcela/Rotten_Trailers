@@ -56,7 +56,7 @@
                     <p class="white-text">Average Viewer Score: 9.5/10</p>
                 </div>
                 <div class="card-action">
-                    <a id="myBtn" data-movie="ironman" href="#">Watch Trailer</a>
+                    <a id="myBtn" data-movie="ironman" onclick="callYouTube()" href="#">Watch Trailer</a>
                     <a href="#">Watch Later</a>
                 </div>
                 <!-- The Modal -->
@@ -66,6 +66,9 @@
                     <span class="close">&times;</span>
                     <video class="responsive-video" controls>
                         <source id="movieTrailer" src="movie.mp4" type="video/mp4">
+                    </video>
+                    <video class="responsive-video" id="testing" controls>
+                        <source type="video/mp4">
                     </video>
                 </div>
             </div>
