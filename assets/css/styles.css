@@ -59,3 +59,6 @@ nav ul a {
 }
 
 /* styling of copyright text */
+#footer-copyright{
+  font-size: 10px;
+}
