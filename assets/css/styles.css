@@ -56,3 +56,9 @@ nav ul a {
 }
 
 /* Adds margin to footer content */
+#footer-container{
+  display: table;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
