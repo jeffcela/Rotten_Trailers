@@ -47,8 +47,6 @@ function callYouTube () {
 } */
 
 
-callYouTube();
-
 /*
 
 // Loads code for iPlayer API
@@ -81,7 +79,7 @@ function onPlayerReady(event) {
 */
 
 function constructVideoUrl(videoIdentifier) {
-  var videoUrl
+  var videoUrl; // needs to be `https://www.youtube.com/embed/${videoIdentifier}`;
 }
 
 // When the user clicks on <span> (x), close the modal
