@@ -1,57 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="assets/images/rotten_trailers_favicon.png" />
+    <!-- This is a reset that may not be needed -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- This is our CSS style sheet -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Rotten Trailers</title>
+</head>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" type="image/jpg" href="assets/images/rotten_trailers_favicon.png" />
-        <!-- This is a reset that may not be needed -->
-        <link rel="stylesheet" href="assets/css/reset.css">
-        <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <!-- This is our CSS style sheet -->
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <title>Rotten Trailers - TV</title>
-    </head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="index.html" class="left"><img id="logo" src="assets/images/rotten_trailers_logo_NT.png" width="100" height="auto" alt="Rotten Trailers Logo" /></a>
+                <a href="index.html" class="brand-logo center"><img id="logo" src="assets/images/rotten_trailers_logo-type.png" width="375" height="auto" alt="Rotten Trailers Logo" /></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="search.html"><i title="Movies" class="material-icons">local_movies</i></a></li>
+                    <li><a href="tv.html"><i title="TV Shows" class="material-icons">live_tv</i></a></li>
+                    <li><a href="saved.html"><i title="Watch Later" class="material-icons">save</i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-    <body>
-        <header>
-            <nav>
-                <div class="nav-wrapper #8bc34a light-green">
-                    <a href="index.html" class="left"><img id="logo" src="assets/images/rotten_trailers_logo_NT.png" width="100" height="auto" alt="Rottern Trailers Logo" /></a>
-                    <a href="index.html" class="brand-logo center"><img id="logo" src="assets/images/rotten_trailers_logo-type.png" width="375" height="auto" alt="Rottern Trailers Logo" /></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="search.html">Movies</a></li>
-                        <li><a href="tv.html">TV Shows</a></li>
-                        <li><a href="saved.html">Watch Later</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+    <div class="container">
+        <div class="row">
+            <!-- This is the wrapper for the aside and main -->
+            <aside id="container-aside">
 
-        <div class="container">
-            <div class="row">
-                <!-- This is the wrapper for the aside and main -->
-                <aside id="container-aside">
+            </aside>
+        </div>
+    </div>
 
-                </aside>
+    <footer>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2021 Copyright RottenTrailers Inc.
             </div>
         </div>
+    </footer>
 
-        <footer>
-            <p>tv.html</p>
-            <p>© 2021 Rotten Trailers, All rights reserved</p>
-        
-        </footer>
+    <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- This is our JSS style sheets -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/video.js"></script>
 
-        <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <!-- This is our JSS style sheets -->
-        <script src="assets/js/script.js"></script>
-        <script src="assets/js/search.js"></script>
-        <script src="assets/js/video.js"></script>
-
-    </body>
-
+</body>
 </html>
