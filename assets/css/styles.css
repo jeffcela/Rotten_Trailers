@@ -47,6 +47,7 @@ nav ul a {
 }
 
 /* Centering, adding margins and positioning to footer content */
+
 #footer-container{
   width: 100%;
   height: 28px;
@@ -56,3 +57,5 @@ nav ul a {
   left: 0px; 
   text-align: center; 
 }
+
+/* styling of copyright text */
