@@ -89,6 +89,7 @@ footer {
 
 /* Styles font for reults container */
 table, th, td {
+  border-style:radius;
   border: 1px solid whitesmoke;
 
 }
