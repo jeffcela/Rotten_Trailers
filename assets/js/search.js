@@ -37,7 +37,7 @@ function searchMovie(searchQuery) {
     })
     .then(data => {
         // returns the search results object
-        console.log(data);
+        // console.log(data);
         // all of the results are encapsulated in an array called Search
         // console.log(data.Search[0].Title);
         /* This would cycle through all search results. We want to currently limit it to 5 or less, so will use a for loop instead
@@ -45,6 +45,8 @@ function searchMovie(searchQuery) {
             // sends a single movie object to the populateResult function
             populateResult(movie);
         })*/
+
+
         if (data.Search.length < 5){
             // this is if the number of Search objects is less than 5
             for (var i=0;i<=data.Search.length;i++){
@@ -66,12 +68,25 @@ function clickSearchBtn(){
     var searchBox = document.querySelector("#search-input");
     // getting the value inside the search text box
     var searchQuery = searchBox.value;
-    // add the search title to the fromStorage array and save it
-    fromStorage.push(searchQuery);
-    localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
 
-    searchMovie(searchQuery);
-    createRecentBtn(searchQuery);
+    if (searchQuery != null){
+        // add the search title to the fromStorage array and save it
+        if (fromStorage == null){
+            fromStorage = [searchQuery];
+            localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
+
+            searchMovie(searchQuery);
+            createRecentBtn(searchQuery);
+        } else{
+            fromStorage.push(searchQuery);
+            localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
+
+            searchMovie(searchQuery);
+            createRecentBtn(searchQuery);
+        }
+    } else{
+        alert("Please enter a search query!")
+    }
 };
 
 function createRecentBtn (searchParam) {
@@ -108,19 +123,68 @@ function populateRecent () {
 function populateResult (movieData) {
     // populate the results, movieData is an object that contains all of the info from IMDB
     var searchURLbyID = queryTxtEl1b + movieData.imdbID + queryTxtEl2 + queryTxtEl3;
+    // resultCard is the overall card for a given movie, with a class=card
     var resultCard = document.createElement("div");
+    // cardTitle is the movie name and score; has a span(spanTitle) and p(pViewScore), with a class="card-content #b71c1c red darken-4"
     var cardTitle = document.createElement("div");
+    // spanTitle contains the movie name as text, appends to cardTitle, with a class="card-title white-text"
     var spanTitle = document.createElement("span");
+    // pViewScore contains the RottenTomatoes score, appends to cardTitle, class="white-text", text starts with "Freshness Score: "
     var pViewScore = document.createElement("p");
+    // cardAction contains the Watch Trailer and Watch Later, class="card-action"
     var cardAction = document.createElement("div");
+    // watchTrailer is an anchor with a id="myBtn" data-movie="movieData.Title" href="#" onClick="watchTrailer()"
     var watchTrailer = document.createElement("a");
+    // watchLater is an anchor with a href="#"
     var watchLater = document.createElement("a");
 
     console.log(searchURLbyID);
     
-    spanTitle.textContent = movieData.Title;
+    fetch(searchURLbyID, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
+            "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log("searchURLbyID result: " + data);
+        resultCard.setAttribute("class", "card");
 
+        cardTitle.setAttribute("class", "card-content #b71c1c red darken-4")
     
+        spanTitle.textContent = movieData.Title;
+        spanTitle.setAttribute("class", "card-title white-text");
+    
+        pViewScore.setAttribute("class", "white-text");
+        pViewScore.textContent = "Freshness Score: " + data.Ratings[1].Value;
+
+        cardAction.setAttribute("class", "card-action");
+
+        watchTrailer.setAttribute("id", "myBtn");
+        watchTrailer.setAttribute("data-movie", movieData.Title);
+        watchTrailer.setAttribute("href", "#");
+        watchTrailer.setAttribute("onClick", "callYouTube()");
+
+        watchLater.setAttribute("href", "#");
+
+        // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
+        cardTitle.appendChild(spanTitle);
+        cardTitle.appendChild(pViewScore);
+        // attach the watchTrailer and watchLater to the cardAction
+        cardAction.appendChild(watchTrailer);
+        cardAction.appendChild(watchLater);
+        // attach all to resultCards
+        resultCard.appendChild(cardTitle);
+        resultCard.appendChild(cardAction);
+        // attached the completed card to the hook in the HTML, resultCards
+        resultCards.appendChild(resultCard);
+    })
+
+
     
 }
 
