@@ -59,8 +59,45 @@ function searchMovie(searchQuery) {
                     .then pass the imdbIDResult object into populateResult()
                 }
             }
-        */
+        This doesn't work
+        if (data.Search.length < 5){
+            for(var i=0;i<=data.Search.length;i++){
+                var searchURLbyID = queryTxtEl1b + data.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
+                fetch(searchURLbyID, {
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
+                        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+                    }
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(movieData => {
+                    populateResult(movieData);
+                });
+            };
+        } else {
+            for(var i=0;i<=4;i++){
+                var searchURLbyID = queryTxtEl1b + data.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
+                console.log(searchURLbyID);
+                fetch(searchURLbyID, {
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
+                        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+                    }
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(movieData => {
+                    populateResult(movieData);
+                });
+            };
 
+        }
+    
         if (data.Search.length < 5){
             // this is if the number of Search objects is less than 5
             for (var i=0;i<=data.Search.length;i++){
@@ -70,12 +107,49 @@ function searchMovie(searchQuery) {
                 for (var i=0;i<=4;i++){
                     populateResult(data.Search[i]);
                 }
-            }
+            }*/
+        fetchForIMDBID(data);
+        createRecentBtn(searchQuery);
     })
     .catch(err => {
         console.error(err);
     }); 
 };
+
+async function fetchForIMDBID(allMovies){
+    var searchURLbyID = " ";
+    var response;
+    var imdbMovie;
+    if (allMovies.Search.length < 5){
+            for(var i=0;i<=allMovies.Search.length;i++){
+                searchURLbyID = queryTxtEl1b + allMovies.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
+                response = await fetch(searchURLbyID, {
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
+                        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+                    }
+                });
+                imdbMovie = await response.json();
+                populateResult(imdbMovie);
+                };
+        } else {
+            for(var i=0;i<=4;i++){
+                searchURLbyID = queryTxtEl1b + allMovies.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
+                console.log(searchURLbyID);
+                response = await fetch(searchURLbyID, {
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
+                        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+                    }
+                });
+                
+                imdbMovie = await response.json();
+                populateResult(imdbMovie);
+            };
+        };
+}
 
 function clickSearchBtn(){
     // getting the search text box
@@ -136,7 +210,7 @@ function populateRecent () {
 
 function populateResult (movieData) {
     // populate the results, movieData is an object that contains all of the info from IMDB
-    var searchURLbyID = queryTxtEl1b + movieData.imdbID + queryTxtEl2 + queryTxtEl3;
+    // var searchURLbyID = queryTxtEl1b + movieData.imdbID + queryTxtEl2 + queryTxtEl3;
     // resultCard is the overall card for a given movie, with a class=card
     var resultCard = document.createElement("div");
     // cardTitle is the movie name and score; has a span(spanTitle) and p(pViewScore), with a class="card-content #b71c1c red darken-4"
@@ -152,8 +226,8 @@ function populateResult (movieData) {
     // watchLater is an anchor with a href="#"
     var watchLater = document.createElement("a");
 
-    console.log(searchURLbyID);
-    
+
+    /*
     fetch(searchURLbyID, {
         "method": "GET",
         "headers": {
@@ -197,8 +271,44 @@ function populateResult (movieData) {
         // attached the completed card to the hook in the HTML, resultCards
         resultCards.appendChild(resultCard);
     })
+*/
+        resultCard.setAttribute("class", "card");
 
+        cardTitle.setAttribute("class", "card-content #b71c1c red darken-4")
+    
+        spanTitle.textContent = movieData.Title;
+        spanTitle.setAttribute("class", "card-title white-text");
+        
+        pViewScore.setAttribute("class", "white-text");
+        // error catching has to happen here in case there are no Ratings
+        if (movieData.Ratings == null){
+            pViewScore.textContent = "No Score"
+        } else if (movieData.Ratings.length == 1){
+            pViewScore.textContent = "IMDB Score: " + movieData.Ratings[0].Value;
+        } else {
+        pViewScore.textContent = "Freshness Score: " + movieData.Ratings[1].Value;
+        };
+        
+        cardAction.setAttribute("class", "card-action");
 
+        watchTrailer.setAttribute("id", "myBtn");
+        watchTrailer.setAttribute("data-movie", movieData.Title);
+        watchTrailer.setAttribute("href", "#");
+        watchTrailer.setAttribute("onClick", "callYouTube()");
+
+        watchLater.setAttribute("href", "#");
+
+        // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
+        cardTitle.appendChild(spanTitle);
+        cardTitle.appendChild(pViewScore);
+        // attach the watchTrailer and watchLater to the cardAction
+        cardAction.appendChild(watchTrailer);
+        cardAction.appendChild(watchLater);
+        // attach all to resultCards
+        resultCard.appendChild(cardTitle);
+        resultCard.appendChild(cardAction);
+        // attached the completed card to the hook in the HTML, resultCards
+        resultCards.appendChild(resultCard);
     
 }
 
