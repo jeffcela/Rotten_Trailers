@@ -46,6 +46,20 @@ function searchMovie(searchQuery) {
             populateResult(movie);
         })*/
 
+        /* if the data.search.length is less than 5
+            for (i=0;i<=data.search.length;i++){
+                fetch the movie object by data.search[i].imdbID
+                .then make the return into a JSON object
+                .then pass the imdbIDResult object into populateResult
+            }
+            else the data.search.length is 5 or more{
+                for (i=0;i<=4;i++){
+                    fetch the movie object by data.search[i].imdbID
+                    .then make the return into a JSON object
+                    .then pass the imdbIDResult object into populateResult()
+                }
+            }
+        */
 
         if (data.Search.length < 5){
             // this is if the number of Search objects is less than 5
