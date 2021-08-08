@@ -89,15 +89,11 @@ footer {
 
 /* Styles font for reults container */
 table, th, td {
-  border-style:radius;
   border: 1px solid whitesmoke;
 
 }
 
 table {
   border-spacing: 5px;
-}
-
-.recentSearchTitle{
-color:whitesmoke;
+  border-radius: 5px;
 }
