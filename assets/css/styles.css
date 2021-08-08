@@ -90,4 +90,6 @@ footer {
 /* Styles font for reults container */
 table, th, td {
   border: 1px solid whitesmoke;
+  border-spacing: 5px;
+  
 }
