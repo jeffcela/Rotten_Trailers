@@ -91,9 +91,12 @@ footer {
 table, th, td {
   border: 1px solid whitesmoke;
 
-
 }
 
 table {
   border-spacing: 5px;
+}
+
+.recentSearchTitle{
+color:whitesmoke;
 }
