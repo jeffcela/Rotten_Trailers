@@ -119,3 +119,24 @@ footer {
   font-size: 10px;
   padding: 8px 0px;
 }
+
+/* Styles font for reults container */
+table, th, td {
+  border: 1px solid whitesmoke;
+
+}
+
+table {
+  border-spacing: 5px;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+h5 {
+  color: ghostwhite;
+  font-style: italic;  
+}
+
