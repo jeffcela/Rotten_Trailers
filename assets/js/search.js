@@ -19,7 +19,8 @@ function searchMovie(searchQuery) {
     */
     var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2 + queryTxtEl3;
     searchURL = searchURL.replace(" ", "%20");
-    console.log(searchURL);
+    // this calls the function to clear previous result cards
+
     // this fetch part requires the headers to be used
     fetch(searchURL, {
         "method": "GET",
@@ -209,6 +210,15 @@ function populateResult (movieData) {
     // attached the completed card to the hook in the HTML, resultCards
     resultCards.appendChild(resultCard);
     
+}
+
+function deleteResults() {
+    // example copied from https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/
+    var child = resultCards.lastElementChild; 
+        while (child) {
+            resultCards.removeChild(child);
+            child = resultCards.lastElementChild;
+        }
 }
 
 // this has to run when the page loads in order to populate fromStorage and not accidentally clear storedRecent
