@@ -34,6 +34,7 @@ function callYouTube (trailerBtn) {
   .then(data => {
       // returns the search results object
       console.log(data);
+
       //console.log(data.items[0].snippet.channelId); 
       var videoIdentifier;
       if (data.items[0].snippet.channelId == fandangoChannel){
