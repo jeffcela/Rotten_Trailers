@@ -104,17 +104,30 @@ function clickSearchBtn(){
     var searchQuery = searchBox.value;
 
     if (searchQuery != null){
-        // add the search title to the fromStorage array and save it
+        // a check was performed to make sure that there is something in the searchBox
         if (fromStorage == null){
+            // this is if there is nothing in fromStorage, then this gets run
             fromStorage = [searchQuery];
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-            searchMovie(searchQuery);
-        } else{
+            createRecentBtn(searchQuery);
+        } else if (!fromStorage.includes(searchQuery)){
+            // this checks to see if searchQuery is already in fromStorage
             fromStorage.push(searchQuery);
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-            searchMovie(searchQuery);
+            createRecentBtn(searchQuery);
         };
-        createRecentBtn(searchQuery);
+        /* the above checked for 2 conditions
+            if fromStorage was equal to null (nothing in fromStorage and so no Recent Search)
+                then it would put searchQuery into fromStorage
+                store fromStorage in local storage
+                create a Recent Search Button
+            else if fromStorage does NOT include searchQuery
+                then it will use the push method to add searchQuery to fromStorage
+                store fromStorage into local storage
+                create a Recent Search button
+        */
+        searchMovie(searchQuery);
+        
     } else{
         alert("Please enter a search query!")
     };
