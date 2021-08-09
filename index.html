@@ -4,9 +4,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="assets/images/rotten_trailers_favicon.png"/>
+    <!-- This is a reset that may not be needed -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- This is our CSS style sheet -->
+    <link rel="stylesheet" href="assets/css/styles.css">
     <title>Rotten Trailers</title>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="index.html" class="left"><img id="logo" src="assets/images/rotten_trailers_logo_NT.png" width="100" height="auto" alt="Rotten Trailers Logo" /></a>
+                <a href="index.html" class="brand-logo center"><img id="logo" src="assets/images/rotten_trailers_logo-type.png" width="375" height="auto" alt="Rotten Trailers Logo" /></a>
+                <a href="#" data-target="mobile" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="search.html"><i title="Movies" class="material-icons">local_movies</i></a></li>
+                    <li><a href="tv.html"><i title="TV Shows" class="material-icons">live_tv</i></a></li>
+                    <li><a href="saved.html"><i title="Watch Later" class="material-icons">save</i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+     <!-- hidden nav bar code from materalize, only shows when screen size is too small for original icons-->
+     <ul id="mobile" class="sidenav">
+        <li><a href="search.html"><i title="Movies" class="material-icons">local_movies</i>local movies</a></li>
+        <li><a href="tv.html"><i title="TV Shows" class="material-icons">live_tv</i>live tv</a></li>
+        <li><a href="saved.html"><i title="Watch Later" class="material-icons">save</i>save</a></li>
+    </ul>
     
+    <div>
+        <div class="flex-container">
+            <div class="row flex-item" id="container-search">
+                <form>
+                    <input class="search-bar" type="text" id="search-input" name="search-input" autocomplete="off" placeholder="Movie Name">
+                </form>
+                <button id="btn-search" class="waves-effect waves-light btn btn-search"><i title="Search" class="material-icons">search</i></button>
+            </div>
+        </div>
+    </div>
+        
+    <footer>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2021 Copyright RottenTrailers Inc.
+            </div>
+        </div>
+    </footer>
+
+    <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- This is our JSS style sheets -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/video.js"></script>
+
 </body>
+
 </html>
