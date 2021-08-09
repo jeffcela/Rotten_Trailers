@@ -34,7 +34,7 @@ function callYouTube () {
       // returns the search results object
       console.log(data);
       console.log(data.items[0].snippet.channelId); 
-      var videoIdentifier = data.items[0].videoId
+      var videoIdentifier = data.items[0].videoId;
       // document.getElementById("testing").setAttribute("")
   })
 }
@@ -47,7 +47,7 @@ function callYouTube () {
 } */
 
 
-/*
+
 
 // Loads code for iPlayer API
 var tag = document.createElement('script');
@@ -57,7 +57,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Creates iFrame and YouTube player
 var player;
-function onYouTubeIframeAPIReady() {
+function onYouTubeIframeAPIReady(event) {
   player = new YT.Player('player', {
     height: '390',
     width: '640',
@@ -66,7 +66,7 @@ function onYouTubeIframeAPIReady() {
       'playsinline': 1
     },
     events: {
-      'onReady': onPlayerReady,
+      'onReady': onPlayerReady(event),
       'onStateChange': onPlayerStateChange
     }
   });
@@ -74,13 +74,15 @@ function onYouTubeIframeAPIReady() {
 
 // API calls function when player ready
 function onPlayerReady(event) {
-  event.target.playVideo();
+  event.target.playVideo(event);
 }
-*/
+
+
 
 function constructVideoUrl(videoIdentifier) {
   var videoUrl; // needs to be `https://www.youtube.com/embed/${videoIdentifier}`;
 }
+
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
