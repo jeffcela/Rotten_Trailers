@@ -19,6 +19,7 @@
             <div class="nav-wrapper">
                 <a href="index.html" class="left"><img id="logo" src="assets/images/rotten_trailers_logo_NT.png" width="100" height="auto" alt="Rotten Trailers Logo" /></a>
                 <a href="index.html" class="brand-logo center"><img id="logo" src="assets/images/rotten_trailers_logo-type.png" width="375" height="auto" alt="Rotten Trailers Logo" /></a>
+                <a href="#" data-target="mobile" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="search.html"><i title="Movies" class="material-icons">local_movies</i></a></li>
                     <li><a href="tv.html"><i title="TV Shows" class="material-icons">live_tv</i></a></li>
@@ -27,70 +28,71 @@
             </div>
         </nav>
     </header>
+    <!-- hidden nav bar code from materalize, only shows when screen size is too small for original icons-->
+    <ul id="mobile" class="sidenav">
+        <li><a href="search.html"><i title="Movies" class="material-icons">local_movies</i>local movies</a></li>
+        <li><a href="tv.html"><i title="TV Shows" class="material-icons">live_tv</i>live tv</a></li>
+        <li><a href="saved.html"><i title="Watch Later" class="material-icons">save</i>save</a></li>
+    </ul>
+    
     <!-- This the div for the entire main page -->
     <div class="container">
         <div class="row">
             <!-- This is the wrapper for the aside and main -->
+            
             <aside class="col s3" id="container-aside">
                 <div id="container-search">
                     <form>
-                        <input type="text" id="search-input" name="search-input" placeholder="Movie Name">
+                        <input type="text" id="search-input" name="search-input" autocomplete="off" placeholder="Movie Name">
                     </form>
-                    <button id="btn-search" class="waves-effect waves-light btn">Search</button>
-                </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <div class="card-action">
-                    <a id="myBtn" data-movie="ironman" onclick="callYouTube()" href="#">Watch Trailer</a>
-                    <a href="#">Watch Later</a>
-                </div>
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-                <!-- Modal content -->
-                <div id="videoTrailer" class="modal-content">
-                    <span class="close">&times;</span>
-                    <video class="responsive-video" controls>
-                        <source id="movieTrailer" src="movie.mp4" type="video/mp4">
-                    </video>
-                    <video class="responsive-video" id="testing" controls>
-                        <source type="video/mp4">
-                    </video>
 
-                <div id="container-recent">
-                    <h5>Recent</h5>
+                    <button id="btn-search" class="waves-effect waves-light btn"><i title="Search" class="material-icons">search</i></button>
+                </div>
+                <div id="container-recent" class="responsive-table">                
+                    <h5>Recent Search</h5>
+                    <div id= "recentSearchBorder">
                     <ul id="list-recent">
+                            
                         <li><button>Movie Name Recent Search</button></li>
+                            
                         <li><button>Movie Name Recent Search</button></li>
+                            
                         <li><button>Movie Name Recent Search</button></li>
+
+                        <li><button>Movie Name Recent Search</button></li>
+
+                        <li><button>Movie Name Recent Search</button></li>
+                            
                     </ul>
+                    </div>
                 </div>
             </aside>
+
+
+
             <div id="resultCards" class="col s9">
                 <div class="card">
                     <div class="card-content #b71c1c red darken-4">
                         <span class="card-title white-text">Movie Name</span>
                         <p class="white-text">Average Viewer Score: 9.5/10</p>
+                        <p class="white-text">Movie Director: M. Night Shyamalan</p>
                     </div>
                     <div class="card-action">
                         <a id="myBtn" data-movie="ironman" onclick="callYouTube()" href="#">Watch Trailer</a>
                         <a href="#">Watch Later</a>
                     </div>
-                    <!-- The Modal -->
-                    <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div id="videoTrailer" class="modal-content">
-                        <span class="close">&times;</span>
-                        <video class="responsive-video" controls>
-                            <source id="movieTrailer" src="movie.mp4" type="video/mp4">
-                        </video>
-                    </div>
-<<<<<<< HEAD
->>>>>>> 82703e6983cb074888bb5ebefb974b00fa2ce637
-=======
->>>>>>> 68678a0d1fdb4b1242b4b98ceeedaa5eee30e1dc
                 </div>
             </div>
-            
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                    <span class="close">&times;</span>
+                    <!--<video class="responsive-video" controls>
+                        
+                        <source id="movieTrailer" src="movie.mp4" type="video/mp4">
+                    </video>-->
+                    <div id="player"></div>
+                </div>
             <!-- Need to create the divs for the search results -->
         </div>
     </div>
@@ -111,4 +113,6 @@
     <script src="assets/js/video.js"></script>
 
 </body>
+
+<script src="./assets/js/script.js"></script>
 </html>
