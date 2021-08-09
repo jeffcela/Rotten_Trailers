@@ -81,18 +81,18 @@
                         <a id="myBtn" data-movie="ironman" onclick="callYouTube()" href="#">Watch Trailer</a>
                         <a href="#">Watch Later</a>
                     </div>
-                    <!-- The Modal -->
-                    <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div id="videoTrailer" class="modal-content">
-                        <span class="close">&times;</span>
-                        <video class="responsive-video" controls>
-                            <source id="movieTrailer" src="movie.mp4" type="video/mp4">
-                        </video>
-                    </div>
                 </div>
             </div>
-            
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                    <span class="close">&times;</span>
+                    <!--<video class="responsive-video" controls>
+                        
+                        <source id="movieTrailer" src="movie.mp4" type="video/mp4">
+                    </video>-->
+                    <div id="player"></div>
+                </div>
             <!-- Need to create the divs for the search results -->
         </div>
     </div>
@@ -113,4 +113,6 @@
     <script src="assets/js/video.js"></script>
 
 </body>
+
+<script src="./assets/js/script.js"></script>
 </html>
