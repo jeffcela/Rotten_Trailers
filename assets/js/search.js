@@ -20,7 +20,7 @@ function searchMovie(searchQuery) {
     var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2 + queryTxtEl3;
     searchURL = searchURL.replace(" ", "%20");
     // this calls the function to clear previous result cards
-
+    deleteResults();
     // this fetch part requires the headers to be used
     fetch(searchURL, {
         "method": "GET",
@@ -109,12 +109,10 @@ function clickSearchBtn(){
             fromStorage = [searchQuery];
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
             searchMovie(searchQuery);
-            console.log("if");
         } else{
             fromStorage.push(searchQuery);
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
             searchMovie(searchQuery);
-            console.log("else");
         };
         createRecentBtn(searchQuery);
     } else{
