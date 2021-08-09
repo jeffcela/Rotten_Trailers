@@ -39,77 +39,8 @@ function searchMovie(searchQuery) {
         // returns the search results object
         // console.log(data);
         // all of the results are encapsulated in an array called Search
-        // console.log(data.Search[0].Title);
-        /* This would cycle through all search results. We want to currently limit it to 5 or less, so will use a for loop instead
-        data.Search.forEach(function(movie, index) {
-            // sends a single movie object to the populateResult function
-            populateResult(movie);
-        })*/
 
-        /* if the data.search.length is less than 5
-            for (i=0;i<=data.search.length;i++){
-                fetch the movie object by data.search[i].imdbID
-                .then make the return into a JSON object
-                .then pass the imdbIDResult object into populateResult
-            }
-            else the data.search.length is 5 or more{
-                for (i=0;i<=4;i++){
-                    fetch the movie object by data.search[i].imdbID
-                    .then make the return into a JSON object
-                    .then pass the imdbIDResult object into populateResult()
-                }
-            }
-        This doesn't work
-        if (data.Search.length < 5){
-            for(var i=0;i<=data.Search.length;i++){
-                var searchURLbyID = queryTxtEl1b + data.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
-                fetch(searchURLbyID, {
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
-                        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
-                    }
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(movieData => {
-                    populateResult(movieData);
-                });
-            };
-        } else {
-            for(var i=0;i<=4;i++){
-                var searchURLbyID = queryTxtEl1b + data.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
-                console.log(searchURLbyID);
-                fetch(searchURLbyID, {
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
-                        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
-                    }
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(movieData => {
-                    populateResult(movieData);
-                });
-            };
-
-        }
-    
-        if (data.Search.length < 5){
-            // this is if the number of Search objects is less than 5
-            for (var i=0;i<=data.Search.length;i++){
-                populateResult(data.Search[i]);
-            }} else {
-                // this is if the number of Search objects is more than 5
-                for (var i=0;i<=4;i++){
-                    populateResult(data.Search[i]);
-                }
-            }*/
         fetchForIMDBID(data);
-        createRecentBtn(searchQuery);
     })
     .catch(err => {
         console.error(err);
@@ -120,6 +51,22 @@ async function fetchForIMDBID(allMovies){
     var searchURLbyID = " ";
     var response;
     var imdbMovie;
+
+    /* if the data.search.length is less than 5
+        for (i=0;i<=data.search.length;i++){
+            fetch the movie object by data.search[i].imdbID
+            .then make the return into a JSON object
+            .then pass the imdbIDResult object into populateResult
+        }
+    else the data.search.length is 5 or more{
+        for (i=0;i<=4;i++){
+            fetch the movie object by data.search[i].imdbID
+            .then make the return into a JSON object
+            .then pass the imdbIDResult object into populateResult()
+            }
+        }
+    */
+
     if (allMovies.Search.length < 5){
             for(var i=0;i<=allMovies.Search.length;i++){
                 searchURLbyID = queryTxtEl1b + allMovies.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
@@ -162,19 +109,18 @@ function clickSearchBtn(){
         if (fromStorage == null){
             fromStorage = [searchQuery];
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-
             searchMovie(searchQuery);
-            createRecentBtn(searchQuery);
+            console.log("if");
         } else{
             fromStorage.push(searchQuery);
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-
             searchMovie(searchQuery);
-            createRecentBtn(searchQuery);
-        }
+            console.log("else");
+        };
+        createRecentBtn(searchQuery);
     } else{
         alert("Please enter a search query!")
-    }
+    };
 };
 
 function createRecentBtn (searchParam) {
@@ -226,89 +172,44 @@ function populateResult (movieData) {
     // watchLater is an anchor with a href="#"
     var watchLater = document.createElement("a");
 
+    resultCard.setAttribute("class", "card");
 
-    /*
-    fetch(searchURLbyID, {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
-            "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
-        }
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        console.log("searchURLbyID result: " + data);
-        resultCard.setAttribute("class", "card");
-
-        cardTitle.setAttribute("class", "card-content #b71c1c red darken-4")
+    cardTitle.setAttribute("class", "card-content #b71c1c red darken-4")
     
-        spanTitle.textContent = movieData.Title;
-        spanTitle.setAttribute("class", "card-title white-text");
-    
-        pViewScore.setAttribute("class", "white-text");
-        pViewScore.textContent = "Freshness Score: " + data.Ratings[1].Value;
-
-        cardAction.setAttribute("class", "card-action");
-
-        watchTrailer.setAttribute("id", "myBtn");
-        watchTrailer.setAttribute("data-movie", movieData.Title);
-        watchTrailer.setAttribute("href", "#");
-        watchTrailer.setAttribute("onClick", "callYouTube()");
-
-        watchLater.setAttribute("href", "#");
-
-        // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
-        cardTitle.appendChild(spanTitle);
-        cardTitle.appendChild(pViewScore);
-        // attach the watchTrailer and watchLater to the cardAction
-        cardAction.appendChild(watchTrailer);
-        cardAction.appendChild(watchLater);
-        // attach all to resultCards
-        resultCard.appendChild(cardTitle);
-        resultCard.appendChild(cardAction);
-        // attached the completed card to the hook in the HTML, resultCards
-        resultCards.appendChild(resultCard);
-    })
-*/
-        resultCard.setAttribute("class", "card");
-
-        cardTitle.setAttribute("class", "card-content #b71c1c red darken-4")
-    
-        spanTitle.textContent = movieData.Title;
-        spanTitle.setAttribute("class", "card-title white-text");
+    spanTitle.textContent = movieData.Title;
+    spanTitle.setAttribute("class", "card-title white-text");
+    pViewScore.setAttribute("class", "white-text");
+    // error catching has to happen here in case there are no Ratings
+    if (movieData.Ratings == null){
+        pViewScore.textContent = "No Score"
+    } else if (movieData.Ratings.length == 1){
+        pViewScore.textContent = "IMDB Score: " + movieData.Ratings[0].Value;
+    } else {
+    pViewScore.textContent = "Freshness Score: " + movieData.Ratings[1].Value;
+    };
         
-        pViewScore.setAttribute("class", "white-text");
-        // error catching has to happen here in case there are no Ratings
-        if (movieData.Ratings == null){
-            pViewScore.textContent = "No Score"
-        } else if (movieData.Ratings.length == 1){
-            pViewScore.textContent = "IMDB Score: " + movieData.Ratings[0].Value;
-        } else {
-        pViewScore.textContent = "Freshness Score: " + movieData.Ratings[1].Value;
-        };
-        
-        cardAction.setAttribute("class", "card-action");
+    cardAction.setAttribute("class", "card-action");
 
-        watchTrailer.setAttribute("id", "myBtn");
-        watchTrailer.setAttribute("data-movie", movieData.Title);
-        watchTrailer.setAttribute("href", "#");
-        watchTrailer.setAttribute("onClick", "callYouTube()");
+    watchTrailer.setAttribute("id", "myBtn");
+    watchTrailer.setAttribute("data-movie", movieData.Title);
+    watchTrailer.setAttribute("href", "#");
+    watchTrailer.setAttribute("onClick", "callYouTube(this)");
+    watchTrailer.textContent = "Watch Trailer";
 
-        watchLater.setAttribute("href", "#");
+    watchLater.setAttribute("href", "#");
+    watchLater.textContent = "Watch Later";
 
-        // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
-        cardTitle.appendChild(spanTitle);
-        cardTitle.appendChild(pViewScore);
-        // attach the watchTrailer and watchLater to the cardAction
-        cardAction.appendChild(watchTrailer);
-        cardAction.appendChild(watchLater);
-        // attach all to resultCards
-        resultCard.appendChild(cardTitle);
-        resultCard.appendChild(cardAction);
-        // attached the completed card to the hook in the HTML, resultCards
-        resultCards.appendChild(resultCard);
+    // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
+    cardTitle.appendChild(spanTitle);
+    cardTitle.appendChild(pViewScore);
+    // attach the watchTrailer and watchLater to the cardAction
+    cardAction.appendChild(watchTrailer);
+    cardAction.appendChild(watchLater);
+    // attach all to resultCards
+    resultCard.appendChild(cardTitle);
+    resultCard.appendChild(cardAction);
+    // attached the completed card to the hook in the HTML, resultCards
+    resultCards.appendChild(resultCard);
     
 }
 
