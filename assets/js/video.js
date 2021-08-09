@@ -24,6 +24,12 @@ function showTrailer() {
 }
 
 function callYouTube () {
+  var urlEl1 = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCi8e0iOVk1fEOogdfu4YgfA&maxResults=1&q=`;
+  var urlElQuery = "Dune"; //this is a variable, it has to get set when the callYouTube function gets called
+  var urlEl2 = `&key=${apiKey}`;
+  var url = urlEl1 + urlElQuery + urlEl2;
+
+fetch (url)
   fetch(url)
   .then(response => {
       //console.log(response);
@@ -34,20 +40,25 @@ function callYouTube () {
       // returns the search results object
       console.log(data);
       console.log(data.items[0].snippet.channelId); 
-      var videoIdentifier = data.items[0].videoId
-      // document.getElementById("testing").setAttribute("")
+      var videoIdentifier = data.items[0].videoId;
+      var trailerVidIndex = data.items.findIndex(function (post, index) {
+      if(data.items[index].snippet.channelID == fandangoChannel){
+          return true; }
+        });
+      if(trailerVidIndex >=0){
+          var videoIdentifier = data.items[trailerVidIndex].videoId;
+          } 
+      else {
+        if (trailerVidIndex < 0) {
+            alert("No trailer found!");
+          }
+          }
   })
 }
 
-/* async function getTrailer() {
-  if (data.items[0].snippet.channelId === UCi8e0iOVk1fEOogdfu4YgfA) {
-
-  }
-  if (data.items[0].snippet.channelTitle = )
-} */
 
 
-/*
+
 
 // Loads code for iPlayer API
 var tag = document.createElement('script');
@@ -76,7 +87,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
   event.target.playVideo();
 }
-*/
+
 
 function constructVideoUrl(videoIdentifier) {
   var videoUrl; // needs to be `https://www.youtube.com/embed/${videoIdentifier}`;
