@@ -3,37 +3,28 @@ var apiKey = 'AIzaSyC46Ga2DC556_V4JYsLVaCkqzQz0D_Roaw';
 //var url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&type=video&q=dune&videotype=movie&key=${apiKey}`;
 var fandangoChannel = "UCi8e0iOVk1fEOogdfu4YgfA";
 
-
-// GET https://www.googleapis.com/youtube/v3/search
-
+// Loads code for iPlayer API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Get the modal
 var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-//var btn = document.getElementById("btn-search");
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-/*function showTrailer() {
-  modal.style.display = "block";
-
-  // replace placeholder video with trailer
-}*/
-
 function callYouTube (trailerBtn) {
-  var urlEl1 = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCi8e0iOVk1fEOogdfu4YgfA&maxResults=1&q=`;
-  // urlElQuery = trailerBtn.movie;
-  var urlElQuery = "Dune"; //this is a variable, it has to get set when the callYouTube function gets called
+  var urlEl1 = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCi8e0iOVk1fEOogdfu4YgfA&maxResults=10&q=`;
+  var urlElQuery = trailerBtn.dataset.movie; // this actually grabs the name of the movie from the button
+  //var urlElQuery = "Dune"; //this is a variable, it has to get set when the callYouTube function gets called
   var urlEl2 = `&key=` + apiKey;
   var url = urlEl1 + urlElQuery + urlEl2;
   
-  console.log("from inside callYouTube: ");
-  console.log(trailerBtn.dataset.movie);
-
-  modal.style.display = "block";
+  // this is being left here for future debugging purposes
+  //console.log("from inside callYouTube: " + url);
+  //console.log(trailerBtn.dataset.movie);
   
   fetch(url)
   .then(response => {
@@ -46,39 +37,16 @@ function callYouTube (trailerBtn) {
       console.log(data);
       //console.log(data.items[0].snippet.channelId); 
       var videoIdentifier;
-      /*var trailerVidIndex = data.items.findIndex(function (post, index) {
-        console.log(index);
-        console.log(data.items[index].snippet.channelID);
-      if(data.items[index].snippet.channelID == fandangoChannel){
-          return true; }
-        });  
-      if(trailerVidIndex >=0){
-          var videoIdentifier = data.items[trailerVidIndex].videoId;
-          } 
-      else {
-        if (trailerVidIndex < 0) {
-            alert("No trailer found!");
-          }
-      };*/
       if (data.items[0].snippet.channelId == fandangoChannel){
         videoIdentifier = data.items[0].id.videoId;
       } else {
         alert("No trailer found!");
       };
-      console.log(videoIdentifier);
+      //console.log(videoIdentifier);
+      modal.style.display = "block";
       player.loadVideoById(videoIdentifier);
   })
 }
-
-
-
-
-
-// Loads code for iPlayer API
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Creates iFrame and YouTube player
 var player;
@@ -105,11 +73,6 @@ function onPlayerReady(event) {
   console.log("onReady event has fired");
 }
 
-/*
-function constructVideoUrl(videoIdentifier) {
-  var videoUrl; // needs to be `https://www.youtube.com/embed/${videoIdentifier}`;
-}
-*/
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
