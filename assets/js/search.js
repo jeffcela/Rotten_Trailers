@@ -175,9 +175,11 @@ function populateResult (movieData) {
     var spanTitle = document.createElement("span");
     // pViewScore contains the RottenTomatoes score, appends to cardTitle, class="white-text", text starts with "Freshness Score: "
     var pViewScore = document.createElement("p");
+    // pDirector contains the director information, appends to cardTitle, class="white-text", text starts with "Director: "
+    var pDirector = document.createElement("p");
     // cardAction contains the Watch Trailer and Watch Later, class="card-action"
     var cardAction = document.createElement("div");
-    // watchTrailer is an anchor with a id="myBtn" data-movie="movieData.Title" href="#" onClick="watchTrailer()"
+    // watchTrailer is an anchor with a id="myBtn" data-movie="movieData.Title" href="#" onClick="callYouTube(this)"
     var watchTrailer = document.createElement("a");
     // watchLater is an anchor with a href="#"
     var watchLater = document.createElement("a");
@@ -197,6 +199,8 @@ function populateResult (movieData) {
     } else {
     pViewScore.textContent = "Freshness Score: " + movieData.Ratings[1].Value;
     };
+    pDirector.setAttribute("class", "white-text");
+    pDirector.textContent = "Director: " + movieData.Director;
         
     cardAction.setAttribute("class", "card-action");
 
@@ -212,6 +216,7 @@ function populateResult (movieData) {
     // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
     cardTitle.appendChild(spanTitle);
     cardTitle.appendChild(pViewScore);
+    cardTitle.appendChild(pDirector);
     // attach the watchTrailer and watchLater to the cardAction
     cardAction.appendChild(watchTrailer);
     cardAction.appendChild(watchLater);
