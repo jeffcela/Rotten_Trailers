@@ -19,7 +19,8 @@ function searchMovie(searchQuery) {
     */
     var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2 + queryTxtEl3;
     searchURL = searchURL.replace(" ", "%20");
-    console.log(searchURL);
+    // this calls the function to clear previous result cards
+    deleteResults();
     // this fetch part requires the headers to be used
     fetch(searchURL, {
         "method": "GET",
@@ -103,19 +104,30 @@ function clickSearchBtn(){
     var searchQuery = searchBox.value;
 
     if (searchQuery != null){
-        // add the search title to the fromStorage array and save it
+        // a check was performed to make sure that there is something in the searchBox
         if (fromStorage == null){
+            // this is if there is nothing in fromStorage, then this gets run
             fromStorage = [searchQuery];
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-            searchMovie(searchQuery);
-            console.log("if");
-        } else{
+            createRecentBtn(searchQuery);
+        } else if (!fromStorage.includes(searchQuery)){
+            // this checks to see if searchQuery is already in fromStorage
             fromStorage.push(searchQuery);
             localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-            searchMovie(searchQuery);
-            console.log("else");
+            createRecentBtn(searchQuery);
         };
-        createRecentBtn(searchQuery);
+        /* the above checked for 2 conditions
+            if fromStorage was equal to null (nothing in fromStorage and so no Recent Search)
+                then it would put searchQuery into fromStorage
+                store fromStorage in local storage
+                create a Recent Search Button
+            else if fromStorage does NOT include searchQuery
+                then it will use the push method to add searchQuery to fromStorage
+                store fromStorage into local storage
+                create a Recent Search button
+        */
+        searchMovie(searchQuery);
+        
     } else{
         alert("Please enter a search query!")
     };
@@ -163,9 +175,11 @@ function populateResult (movieData) {
     var spanTitle = document.createElement("span");
     // pViewScore contains the RottenTomatoes score, appends to cardTitle, class="white-text", text starts with "Freshness Score: "
     var pViewScore = document.createElement("p");
+    // pDirector contains the director information, appends to cardTitle, class="white-text", text starts with "Director: "
+    var pDirector = document.createElement("p");
     // cardAction contains the Watch Trailer and Watch Later, class="card-action"
     var cardAction = document.createElement("div");
-    // watchTrailer is an anchor with a id="myBtn" data-movie="movieData.Title" href="#" onClick="watchTrailer()"
+    // watchTrailer is an anchor with a id="myBtn" data-movie="movieData.Title" href="#" onClick="callYouTube(this)"
     var watchTrailer = document.createElement("a");
     // watchLater is an anchor with a href="#"
     var watchLater = document.createElement("a");
@@ -185,6 +199,8 @@ function populateResult (movieData) {
     } else {
     pViewScore.textContent = "Freshness Score: " + movieData.Ratings[1].Value;
     };
+    pDirector.setAttribute("class", "white-text");
+    pDirector.textContent = "Director: " + movieData.Director;
         
     cardAction.setAttribute("class", "card-action");
 
@@ -200,6 +216,7 @@ function populateResult (movieData) {
     // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
     cardTitle.appendChild(spanTitle);
     cardTitle.appendChild(pViewScore);
+    cardTitle.appendChild(pDirector);
     // attach the watchTrailer and watchLater to the cardAction
     cardAction.appendChild(watchTrailer);
     cardAction.appendChild(watchLater);
@@ -209,6 +226,15 @@ function populateResult (movieData) {
     // attached the completed card to the hook in the HTML, resultCards
     resultCards.appendChild(resultCard);
     
+}
+
+function deleteResults() {
+    // example copied from https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/
+    var child = resultCards.lastElementChild; 
+        while (child) {
+            resultCards.removeChild(child);
+            child = resultCards.lastElementChild;
+        }
 }
 
 // this has to run when the page loads in order to populate fromStorage and not accidentally clear storedRecent
