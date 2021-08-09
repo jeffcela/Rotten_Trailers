@@ -1,4 +1,3 @@
-var defaultURL = "https://movie-database-imdb-alternative.p.rapidapi.com/?i=tt4154796&r=json";
 var fromStorage = [];
 // queryTxtEl1 is a default search that searches by a name
 var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
@@ -17,7 +16,6 @@ function searchMovie(searchQuery) {
     /* creating a search URL by adding the URL to the API + the title being searched for + adding that we want 1 page of results as JSON
     We need to use queryTxtEl1 first, to get the list of movie names and IMDB ID's
     populate an array[up to 5] of objects with the movie name and IMDB ID's
-    Call a 
     */
     var searchURL = queryTxtEl1 + searchQuery + queryTxtEl2 + queryTxtEl3;
     searchURL = searchURL.replace(" ", "%20");
