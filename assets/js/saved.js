@@ -1,13 +1,16 @@
 var fromStorageMovie = [];
-// queryTxtEl1 is a default search that searches by a name
-//var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
-// queryTxtEl1b is a search by IMDB ID
-//var queryTxtEl1b = "https://movie-database-imdb-alternative.p.rapidapi.com/?i=";
-// queryTxtEl2 is an optional paramter that determines if the search returns movies, series, or episodes. this can be changed when the page changes from regular search to tv
-//var queryTxtEl2 = "&type=movie";
-// queryTxtEl3 is returning the 1st page of results and as a json, and is added to the end of the URL
-//var queryTxtEl3 = "&page=1&r=json";
 var watchCards = document.querySelector("#watchCards");
+
+function removeCard(removeBtn){
+    var movieID = removeBtn.dataset.imdbid;
+    var remIndex;
+    // remove the movie object from fromStorageMovie and save it into localStorage
+    remIndex = fromStorageMovie.findIndex(movObj => movObj.imdbID == movieID);
+    fromStorageMovie[remIndex, 1];
+    localStorage.setItem("watchLater", JSON.stringify(fromStorageMovie));
+    // this removes the removeBtn's parent's parent, which is the card that holds both movie info and the actions
+    removeBtn.parentElement.parentElement.remove();
+}
 
 function createWatchCard (movieData) {
     // populate the Watch Later Cards, movieData is an object that contains all of the info from IMDB
@@ -55,7 +58,7 @@ function createWatchCard (movieData) {
     watchTrailer.textContent = "Watch Trailer";
 
     remCard.setAttribute("href", "#");
-    remCard.setAttribute("data-movie", movieData.Title);
+    remCard.setAttribute("data-imdbid", movieData.imdbID);
     remCard.setAttribute("onClick", "removeCard(this)");
     remCard.textContent = "Remove";
 
@@ -75,8 +78,8 @@ function createWatchCard (movieData) {
 }
 
 function populateWatchLater () {
-    // get the list of recent searches out of local storage
-    fromStorageMovie = JSON.parse(localStorage.getItem("storedRecent"));
+    // get the list of recent searches out of local storage; use storedRecent for testing, change to watchLater when done
+    fromStorageMovie = JSON.parse(localStorage.getItem("watchLater"));
     if (fromStorageMovie !== null) {
         fromStorageMovie.forEach(function(searchTerm, index){
             createWatchCard(searchTerm);
@@ -84,6 +87,6 @@ function populateWatchLater () {
     } else {
         console.log("Nothing in local storage");
     };
-};
+}
 
 populateWatchLater();
