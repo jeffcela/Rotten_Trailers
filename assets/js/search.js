@@ -103,35 +103,62 @@ function clickSearchBtn(){
     // getting the value inside the search text box
     var searchQuery = searchBox.value;
 
+    // as the clickSearchBtn exists on both the index.html and search.html, this function must test whether it's one or the other
+    
     if (searchQuery != null){
         // a check was performed to make sure that there is something in the searchBox
-        if (fromStorage == null){
-            // this is if there is nothing in fromStorage, then this gets run
-            fromStorage = [searchQuery];
-            localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-            createRecentBtn(searchQuery);
-        } else if (!fromStorage.includes(searchQuery)){
-            // this checks to see if searchQuery is already in fromStorage
-            fromStorage.push(searchQuery);
-            localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
-            createRecentBtn(searchQuery);
+        if(document.location.href.search("index.html")>0){
+            // the above if checks if the current page is index or search, and got to search.html if it's index.html
+            let searchQueryE = searchQuery.replace(" ", "%20");
+            document.location.href = "./search.html?" + searchQueryE;
         };
-        /* the above checked for 2 conditions
-            if fromStorage was equal to null (nothing in fromStorage and so no Recent Search)
-                then it would put searchQuery into fromStorage
-                store fromStorage in local storage
-                create a Recent Search Button
-            else if fromStorage does NOT include searchQuery
-                then it will use the push method to add searchQuery to fromStorage
-                store fromStorage into local storage
-                create a Recent Search button
-        */
+        
+        storeRecent(searchQuery);
         searchMovie(searchQuery);
         
     } else{
         alert("Please enter a search query!")
     };
 };
+
+function storeRecent(searchQuery) {
+    fromStorage = JSON.parse(localStorage.getItem("storedRecent"));
+    if (fromStorage == null){
+        // this is if there is nothing in fromStorage, then this gets run
+        fromStorage = [searchQuery];
+        localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
+        createRecentBtn(searchQuery);
+    } else if (!fromStorage.includes(searchQuery)){
+        // this checks to see if searchQuery is already in fromStorage
+        fromStorage.push(searchQuery);
+        localStorage.setItem("storedRecent", JSON.stringify(fromStorage));
+        createRecentBtn(searchQuery);
+    };
+    /* the above checked for 2 conditions
+        if fromStorage was equal to null (nothing in fromStorage and so no Recent Search)
+            then it would put searchQuery into fromStorage
+            store fromStorage in local storage
+            create a Recent Search Button
+        else if fromStorage does NOT include searchQuery
+            then it will use the push method to add searchQuery to fromStorage
+            store fromStorage into local storage
+            create a Recent Search button
+    */
+}
+
+function getQueryParams() {
+    // get the query parameters
+    var searchParams = document.location.search;
+    if (searchParams != null){
+    searchParams = searchParams.split("%20"); //turns into an array
+    searchParams = searchParams.join(" ");
+    searchParams = searchParams.slice(1);
+
+    // use the split() method on a string to separate the params
+    // use the slice() method to remove the ? at the beginning
+    searchMovie(searchParams);
+    };
+}
 
 function createRecentBtn (searchParam) {
     // this creates a new Recent Button
@@ -148,6 +175,7 @@ function createRecentBtn (searchParam) {
 
 function clickRecentBtn(clickedBtn) {
     var searchedName = clickedBtn.innerText;
+    document.location.search = searchedName.replace(" ", "%20");
     searchMovie(searchedName);
 };
 
@@ -239,3 +267,4 @@ function deleteResults() {
 
 // this has to run when the page loads in order to populate fromStorage and not accidentally clear storedRecent
 populateRecent();
+getQueryParams();
