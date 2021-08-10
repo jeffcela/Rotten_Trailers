@@ -12,7 +12,7 @@ Presentation [Link](https://docs.google.com/presentation/d/149NPgtjJDJShj_GTdnjF
 
 Make sure to clone or download the entire repository as this document uses **HTML, CSS, Images, and JavaScript files**. If you add in any additional features, please comment where you added them to make it easier for other developers to follow, you will see that comments have been left for future upgrades or tinkering.
 
-Each of the APIs that are being called apon have specifc documentation, please read carefully before making changes as you can cause a break in the scripts.
+Each of the APIs that are being called upon have specifc documentation, please read carefully before making changes as you can cause a break in the scripts.
 
 **What is included:**
 

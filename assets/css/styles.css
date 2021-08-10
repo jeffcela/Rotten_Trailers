@@ -161,3 +161,16 @@ button:focus {
 a {
   color: #343a40 !important;
 }
+
+@media screen and (max-width: 629px) {
+  #logo-nt {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 452px) {
+  #logo {
+    width: 250px;
+    padding-top: 5px;
+  }
+}
