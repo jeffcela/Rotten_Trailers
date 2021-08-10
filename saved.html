@@ -46,17 +46,18 @@
                         <p class="white-text">Average Viewer Score: 9.5/10</p>
                     </div>
                     <div class="card-action">
-                        <a id="myBtn" data-movie="ironman" href="#">Watch Trailer</a>
+                        <a id="myBtn" data-movie="ironman" onclick="populateResult()" href="#">Watch Trailer</a>
                         <a href="#">Remove</a>
+                    </div>
+                    <div id="resultCards" class="col s9">
+                        <!-- This is where the saved movie cards will be hooked -->
                     </div>
                     <!-- The Modal -->
                     <div id="myModal" class="modal">
                         <!-- Modal content -->
                         <div id="videoTrailer" class="modal-content">
                             <span class="close">&times;</span>
-                            <video class="responsive-video" controls>
-                                <source id="movieTrailer" src="movie.mp4" type="video/mp4">
-                            </video>
+                            <div id="player"></div>
                         </div>
                     </div>
                 </div>
@@ -75,6 +76,7 @@
     <!-- https://materializecss.com/ CSS framework (this is a requirement) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- This is our JSS style sheets -->
+    <script src="assets/js/saved.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/search.js"></script>
     <script src="assets/js/video.js"></script>
