@@ -39,27 +39,26 @@
 
     <div class="container">
         <div class="row">
-            <div id="resultCards" class="col s12">
+            <div id="watchCards" class="col s12">
+                <!-- This is where the saved movie cards will be hooked 
+                This is an example of a watchCard, kept here for future reference
                 <div class="card">
                     <div class="card-content #b71c1c red darken-4">
                         <span class="card-title white-text">Movie Name</span>
                         <p class="white-text">Average Viewer Score: 9.5/10</p>
                     </div>
                     <div class="card-action">
-                        <a id="myBtn" data-movie="ironman" onclick="populateResult()" href="#">Watch Trailer</a>
-                        <a href="#">Remove</a>
+                        <a id="myBtn" data-movie="ironman" onclick="callYouTube(this)" href="#">Watch Trailer</a>
+                        <a data-imdbid="tt4154796" onclick="removeCard(this)" href="#">Remove</a>
                     </div>
-                    <div id="resultCards" class="col s9">
-                        <!-- This is where the saved movie cards will be hooked -->
-                    </div>
-                    <!-- The Modal -->
-                    <div id="myModal" class="modal">
-                        <!-- Modal content -->
-                        <div id="videoTrailer" class="modal-content">
-                            <span class="close">&times;</span>
-                            <div id="player"></div>
-                        </div>
-                    </div>
+                -->
+            </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div id="videoTrailer" class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="player"></div>
                 </div>
             </div>
         </div>
@@ -78,7 +77,6 @@
     <!-- This is our JSS style sheets -->
     <script src="assets/js/saved.js"></script>
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/search.js"></script>
     <script src="assets/js/video.js"></script>
 
 </body>

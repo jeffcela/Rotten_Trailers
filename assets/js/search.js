@@ -1,4 +1,5 @@
 var fromStorage = [];
+var toWatchLater = [];
 // queryTxtEl1 is a default search that searches by a name
 var queryTxtEl1 = "https://movie-database-imdb-alternative.p.rapidapi.com/?s=";
 // queryTxtEl1b is a search by IMDB ID
@@ -82,7 +83,6 @@ async function fetchForIMDBID(allMovies){
         } else {
             for(var i=0;i<=4;i++){
                 searchURLbyID = queryTxtEl1b + allMovies.Search[i].imdbID + queryTxtEl2 + queryTxtEl3;
-                console.log(searchURLbyID);
                 response = await fetch(searchURLbyID, {
                     "method": "GET",
                     "headers": {
@@ -90,7 +90,6 @@ async function fetchForIMDBID(allMovies){
                         "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
                     }
                 });
-                
                 imdbMovie = await response.json();
                 populateResult(imdbMovie);
             };
@@ -161,7 +160,7 @@ function getQueryParams() {
 }
 
 function createRecentBtn (searchParam) {
-    // this creates a new Recent Button
+    // this creates a new Recent Button, searchParam is a string with the name of the movie
     var recentLI = document.createElement("li");
     var recentBtn = document.createElement("button");
     recentBtn.innerText = searchParam;
@@ -209,7 +208,7 @@ function populateResult (movieData) {
     var cardAction = document.createElement("div");
     // watchTrailer is an anchor with a id="myBtn" data-movie="movieData.Title" href="#" onClick="callYouTube(this)"
     var watchTrailer = document.createElement("a");
-    // watchLater is an anchor with a href="#"
+    // watchLater is an anchor with a href="#", data-imdbID="movieData.imdbID", onClick="watchLater(this)"
     var watchLater = document.createElement("a");
 
     resultCard.setAttribute("class", "card");
@@ -239,6 +238,8 @@ function populateResult (movieData) {
     watchTrailer.textContent = "Watch Trailer";
 
     watchLater.setAttribute("href", "#");
+    watchLater.setAttribute("data-imdbID", movieData.imdbID);
+    watchLater.setAttribute("onClick", "watchLater(this)");
     watchLater.textContent = "Watch Later";
 
     // attach the spanTitle (movie name) and pViewScore (movie score) to the cardTitle
@@ -263,6 +264,55 @@ function deleteResults() {
             resultCards.removeChild(child);
             child = resultCards.lastElementChild;
         }
+}
+
+function watchLater(laterBtn){
+    // movieID contains the IMDB ID from the data-imdbID attribute of the laterBtn
+    var movieID = laterBtn.dataset.imdbid;
+    // searchURLbyID will contain the final URL query
+    var searchURLbyID = " ";
+
+    // this creates the final URL query
+    searchURLbyID = queryTxtEl1b + movieID + queryTxtEl2 + queryTxtEl3;
+    //this sets toWatchLater to whatever was in local storage at watchLater
+    toWatchLater = JSON.parse(localStorage.getItem("watchLater"));
+
+    // this fetch.then series will get the movie using the imdbID, then store the information into local storage
+    fetch(searchURLbyID, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-key": "e3ff15896amsh9db6024de9b3d2ap1a6df9jsn7a0527f74de8",
+            "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+        }
+    })
+    .then(response => {
+        //console.log(response);
+        // make the returning results into a JSON object
+        return response.json();
+    })
+    .then(imdbMovie => {
+        // imdbMovie will contain the actual movie object
+        if (toWatchLater == null){
+            // this is if there is nothing in toWatchLater, then this gets run
+            toWatchLater = [imdbMovie];
+            localStorage.setItem("watchLater", JSON.stringify(toWatchLater));
+        } else if (toWatchLater.find(movName => movName.imdbID == movieID) == null){
+            // this checks to see if imdbID is already in toWatchLater
+            toWatchLater.push(imdbMovie);
+            localStorage.setItem("watchLater", JSON.stringify(toWatchLater));
+        };
+        /* the above checked for 2 conditions
+            if toWatchLater was equal to null (nothing in toWatchLater)
+                then it would put imdbMovie into toWatchLater
+                store toWatchLater in local storage
+            else if toWatchLater does NOT include movieID
+                then it will use the push method to add imdbMovie to toWatchLater
+                store toWatchLater into local storage
+        */
+    })
+    .catch(err => {
+        console.error(err);
+    });
 }
 
 // this has to run when the page loads in order to populate fromStorage and not accidentally clear storedRecent
